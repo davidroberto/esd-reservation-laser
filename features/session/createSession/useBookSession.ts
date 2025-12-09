@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface BookingData {
+type BookSessionCommand = {
   nom: string;
   prenom: string;
   email: string;
@@ -14,7 +14,7 @@ export function useBookSession() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const bookSession = async (data: BookingData) => {
+  const bookSession = async (bookSessionCommand: BookSessionCommand) => {
     setIsLoading(true);
     setError(null);
     setIsSuccess(false);
@@ -25,14 +25,14 @@ export function useBookSession() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(bookSessionCommand),
       });
 
       if (!response.ok) {
         throw new Error("Erreur lors de la réservation");
       }
 
-      const result = await response.json();
+      await response.json();
       setIsSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
