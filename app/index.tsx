@@ -10,9 +10,9 @@ export default function Index() {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/reservation")}
+        onPress={() => router.push("/create-session")}
       >
-        <Text style={styles.buttonText}>Réserver une session</Text>
+        <Text style={styles.buttonText}>Créer une session</Text>
       </TouchableOpacity>
     </View>
   );

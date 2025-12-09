@@ -1,10 +1,10 @@
 import { StyleSheet, ScrollView } from "react-native";
-import { BookSessionComponent } from "@/features/session/createSession/BookSessionComponent";
+import { CreateSessionComponent } from "@/features/session/createSession/CreateSessionComponent";
 
-export default function Reservation() {
+export default function CreateSession() {
   return (
     <ScrollView style={styles.container}>
-      <BookSessionComponent />
+      <CreateSessionComponent />
     </ScrollView>
   );
 }

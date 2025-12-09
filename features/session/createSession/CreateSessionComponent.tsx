@@ -1,92 +1,71 @@
 import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
-import { useBookSession } from "./useBookSession";
+import { useCreateSession } from "./useCreateSession";
+import FakeSessionRepository from "@/features/session/FakeSessionRepository";
 
-export function BookSessionComponent() {
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [email, setEmail] = useState("");
-  const [heureDebut, setHeureDebut] = useState("");
-  const [heureFin, setHeureFin] = useState("");
-  const [nombrePersonnes, setNombrePersonnes] = useState("");
+export function CreateSessionComponent() {
+  const [dateHeureDebut, setDateHeureDebut] = useState("");
+  const [duree, setDuree] = useState("");
+  const [nombreKartsDisponibles, setNombreKartsDisponibles] = useState("");
+  const [prix, setPrix] = useState("");
 
-  const { bookSession, error, isLoading, isSuccess } = useBookSession();
+  const fakeSessionRepository = new FakeSessionRepository();
+  const { createSession, error, isLoading, isSuccess } = useCreateSession(fakeSessionRepository);
 
   const handleSubmit = async () => {
-    await bookSession({
-      nom,
-      prenom,
-      email,
-      heureDebut,
-      heureFin,
-      nombrePersonnes,
-    });
+      await createSession({
+        dateHeureDebut: new Date(dateHeureDebut),
+        duree: parseInt(duree),
+        nombreKartsDisponibles: parseInt(nombreKartsDisponibles),
+        prix: parseFloat(prix),
+      });
+
   };
 
   return (
     <View style={styles.formContainer}>
-      <Text style={styles.title}>Réservation Laser Quest</Text>
+      <Text style={styles.title}>Créer une Session Karting</Text>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.label}>Nom</Text>
+        <Text style={styles.label}>Date et Heure de début</Text>
         <TextInput
           style={styles.input}
-          value={nom}
-          onChangeText={setNom}
-          placeholder="Entrez votre nom"
+          value={dateHeureDebut}
+          onChangeText={setDateHeureDebut}
+          placeholder="YYYY-MM-DD HH:MM"
         />
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.label}>Prénom</Text>
+        <Text style={styles.label}>Durée (en minutes)</Text>
         <TextInput
           style={styles.input}
-          value={prenom}
-          onChangeText={setPrenom}
-          placeholder="Entrez votre prénom"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-          placeholder="exemple@email.com"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Heure de début</Text>
-        <TextInput
-          style={styles.input}
-          value={heureDebut}
-          onChangeText={setHeureDebut}
-          placeholder="HH:MM"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Heure de fin</Text>
-        <TextInput
-          style={styles.input}
-          value={heureFin}
-          onChangeText={setHeureFin}
-          placeholder="HH:MM"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Nombre de personnes</Text>
-        <TextInput
-          style={styles.input}
-          value={nombrePersonnes}
-          onChangeText={setNombrePersonnes}
-          placeholder="Nombre de personnes"
+          value={duree}
+          onChangeText={setDuree}
+          placeholder="30"
           keyboardType="numeric"
+        />
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Nombre de karts disponibles</Text>
+        <TextInput
+          style={styles.input}
+          value={nombreKartsDisponibles}
+          onChangeText={setNombreKartsDisponibles}
+          placeholder="10"
+          keyboardType="numeric"
+        />
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Prix (€)</Text>
+        <TextInput
+          style={styles.input}
+          value={prix}
+          onChangeText={setPrix}
+          placeholder="25.00"
+          keyboardType="decimal-pad"
         />
       </View>
 
@@ -98,7 +77,7 @@ export function BookSessionComponent() {
         {isLoading ? (
           <ActivityIndicator color="white" />
         ) : (
-          <Text style={styles.buttonText}>Réserver</Text>
+          <Text style={styles.buttonText}>Créer la session</Text>
         )}
       </TouchableOpacity>
 
@@ -110,7 +89,7 @@ export function BookSessionComponent() {
 
       {isSuccess && (
         <View style={styles.successContainer}>
-          <Text style={styles.successText}>Réservation effectuée avec succès !</Text>
+          <Text style={styles.successText}>Session créée avec succès ! Statut: publié</Text>
         </View>
       )}
     </View>
