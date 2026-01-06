@@ -32,7 +32,11 @@ export function useCreateSession() {
         throw new Error("Le nombre de karts doit être strictement supérieur à zéro");
       }
 
-      const fetchResponse = await fetch("https://api.example.com/sessions", {
+      if (command.nombreKartsDisponibles > 10) {
+        throw new Error("Le nombre de karts ne peut pas dépasser 10");
+      }
+
+      const fetchResponse = await fetch("https://fake-api-karting.fr", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
