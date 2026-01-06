@@ -1,5 +1,4 @@
 import { useState } from "react";
-import SessionRepository from "@/features/session/SessionRepository";
 
 type CreateSessionCommand = {
   dateHeureDebut: Date;
@@ -9,7 +8,7 @@ type CreateSessionCommand = {
 }
 
 
-export function useCreateSession(sessionRepository: SessionRepository) {
+export function useCreateSession() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -33,12 +32,18 @@ export function useCreateSession(sessionRepository: SessionRepository) {
         throw new Error("Le nombre de karts doit être strictement supérieur à zéro");
       }
 
-      const fetchResponse = await sessionRepository.createSession(
-          command.dateHeureDebut,
-          command.duree,
-          command.nombreKartsDisponibles,
-          command.prix
-      );
+      const fetchResponse = await fetch("https://api.example.com/sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dateHeureDebut: command.dateHeureDebut.toISOString(),
+          duree: command.duree,
+          nombreKartsDisponibles: command.nombreKartsDisponibles,
+          prix: command.prix,
+        }),
+      });
 
       if (!fetchResponse.ok) {
         throw new Error("Erreur lors de la création de la session");

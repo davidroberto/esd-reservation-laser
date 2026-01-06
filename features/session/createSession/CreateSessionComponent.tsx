@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useCreateSession } from "./useCreateSession";
-import FakeSessionRepository from "@/features/session/FakeSessionRepository";
 
 export function CreateSessionComponent() {
   const [dateHeureDebut, setDateHeureDebut] = useState("");
@@ -9,8 +8,7 @@ export function CreateSessionComponent() {
   const [nombreKartsDisponibles, setNombreKartsDisponibles] = useState("");
   const [prix, setPrix] = useState("");
 
-  const fakeSessionRepository = new FakeSessionRepository();
-  const { createSession, error, isLoading, isSuccess } = useCreateSession(fakeSessionRepository);
+  const { createSession, error, isLoading, isSuccess } = useCreateSession();
 
   const handleSubmit = async () => {
       await createSession({
