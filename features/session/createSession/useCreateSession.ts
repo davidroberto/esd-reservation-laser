@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-import {fakeFetch} from "@/features/shared/fetch";
+import {fetchInterface} from "@/features/shared/fetch";
 
 type CreateSessionCommand = {
   dateHeureDebut: Date;
@@ -11,7 +11,7 @@ type CreateSessionCommand = {
 
 
 
-export function useCreateSession() {
+export function useCreateSession(fetchImplementation: fetchInterface) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,7 +39,7 @@ export function useCreateSession() {
         throw new Error("Le nombre de karts ne peut pas dépasser 10");
       }
 
-      const fetchResponse = await fakeFetch("/api/sessions", {
+      const fetchResponse = await fetchImplementation("/api/sessions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

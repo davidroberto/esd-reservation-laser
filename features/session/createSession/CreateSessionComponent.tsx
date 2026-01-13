@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useCreateSession } from "./useCreateSession";
+import {fakeFetchSuccess} from "@/features/shared/fetch";
 
 export function CreateSessionComponent() {
   const [dateHeureDebut, setDateHeureDebut] = useState("");
@@ -8,7 +9,7 @@ export function CreateSessionComponent() {
   const [nombreKartsDisponibles, setNombreKartsDisponibles] = useState("");
   const [prix, setPrix] = useState("");
 
-  const { createSession, error, isLoading, isSuccess } = useCreateSession();
+  const { createSession, error, isLoading, isSuccess } = useCreateSession(fakeFetchSuccess);
 
   const handleSubmit = async () => {
       await createSession({

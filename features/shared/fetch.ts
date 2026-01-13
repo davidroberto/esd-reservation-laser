@@ -10,7 +10,7 @@ export type fetchInterface = {
     }>;
 }
 
-export const fakeFetch: fetchInterface = (url: string, options: any): Promise<{
+export const fakeFetchSuccess: fetchInterface = (url: string, options: any): Promise<{
     ok: boolean
 }> => {
     return new Promise((resolve) => {
@@ -19,6 +19,18 @@ export const fakeFetch: fetchInterface = (url: string, options: any): Promise<{
         }, 1000);
     });
 }
+
+export const fakeFetchError: fetchInterface = (url: string, options: any): Promise<{
+    ok: boolean
+}> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ok: false});
+        }, 1000);
+    });
+}
+
+
 
 export const fetchApi : fetchInterface = (url: string, options: any): Promise<{
     ok: boolean
