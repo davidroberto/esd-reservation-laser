@@ -1,4 +1,5 @@
-import { useState } from "react";
+import {useState} from "react";
+import {fetchInterface} from "@/features/shared/fetch";
 
 type BookSessionCommand = {
   nom: string;
@@ -9,7 +10,7 @@ type BookSessionCommand = {
   sessionIds: number[];
 };
 
-export function useBookSession() {
+export function useBookSession(fetchImplemention: fetchInterface) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -67,7 +68,7 @@ export function useBookSession() {
       }
 
       // Appel API
-      const fetchResponse = await fetch("https://fake-api-karting.fr/reservations", {
+      const fetchResponse = await fetchImplemention("https://fake-api-karting.fr/reservations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

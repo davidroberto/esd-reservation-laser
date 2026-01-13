@@ -1,20 +1,12 @@
-import { useState } from "react";
+import {useState} from "react";
+
+import {fakeFetch} from "@/features/shared/fetch";
 
 type CreateSessionCommand = {
   dateHeureDebut: Date;
   duree: number;
   nombreKartsDisponibles: number;
   prix: number;
-}
-
-
-const fakeFetch = (url: string, options: any): Promise<{ ok: boolean }> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({ ok: true });
-        }
-        , 1000);
-    });
 }
 
 

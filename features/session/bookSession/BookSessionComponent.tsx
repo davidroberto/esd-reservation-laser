@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { useBookSession } from "./useBookSession";
 
+import {fakeFetch} from "@/features/shared/fetch";
+
 // Sessions fictives pour la démo
 const FAKE_SESSIONS = [
   { id: 1, label: "Session 1 - Lundi 10h-12h" },
@@ -29,7 +31,10 @@ export function BookSessionComponent() {
   const [nombreParticipants, setNombreParticipants] = useState("");
   const [selectedSessions, setSelectedSessions] = useState<number[]>([]);
 
-  const { bookSession, error, isLoading, isSuccess } = useBookSession();
+  // idéalement, on utiliserait un système comme le context
+  // pour définir à un seul endroit quel fetch on utilise pour tous
+  // nos hooks : vrai (pour la prod) ou fake (pour les tests / démo)
+  const { bookSession, error, isLoading, isSuccess } = useBookSession(fakeFetch);
 
   const handleSessionToggle = (sessionId: number) => {
     setSelectedSessions((prev) => {
