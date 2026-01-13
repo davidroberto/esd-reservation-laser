@@ -8,6 +8,17 @@ type CreateSessionCommand = {
 }
 
 
+const fakeFetch = (url: string, options: any): Promise<{ ok: boolean }> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ ok: true });
+        }
+        , 1000);
+    });
+}
+
+
+
 export function useCreateSession() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,18 +47,13 @@ export function useCreateSession() {
         throw new Error("Le nombre de karts ne peut pas dépasser 10");
       }
 
-      const fetchResponse = await fetch("https://fake-api-karting.fr", {
+      const fetchResponse = await fakeFetch("/api/sessions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          dateHeureDebut: command.dateHeureDebut.toISOString(),
-          duree: command.duree,
-          nombreKartsDisponibles: command.nombreKartsDisponibles,
-          prix: command.prix,
-        }),
-      });
+        body: JSON.stringify(command),
+      })
 
       if (!fetchResponse.ok) {
         throw new Error("Erreur lors de la création de la session");
