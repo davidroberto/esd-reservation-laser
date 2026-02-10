@@ -35,6 +35,29 @@ export const fakeFetchGetSession: GetSessionFetchInterface = (url: string): Prom
   });
 }
 
+export const fakeListSessions = () : Promise<Sessions[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          sessionId: "123",
+          dateHeureDebut: "2025-06-15 14:00",
+          duree: 45,
+          nombreKartsDisponibles: 8,
+          prix: 35.50,
+        },
+        {
+          sessionId: "124",
+          dateHeureDebut: "2025-06-15 15:00",
+          duree: 45,
+          nombreKartsDisponibles: 10,
+          prix: 40.00,
+        },
+      ]);
+    }, 500);
+  });
+}
+
 export function useGetSession(sessionId: string, fetchImplementation: GetSessionFetchInterface) {
   const [session, setSession] = useState<Session | null>(null);
   const [error, setError] = useState<string | null>(null);

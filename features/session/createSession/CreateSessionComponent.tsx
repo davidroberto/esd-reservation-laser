@@ -32,6 +32,7 @@ export function CreateSessionComponent() {
           value={dateHeureDebut}
           onChangeText={setDateHeureDebut}
           placeholder="YYYY-MM-DD HH:MM"
+          testID="test-input-dateHeureDebut"
         />
       </View>
 
@@ -43,6 +44,7 @@ export function CreateSessionComponent() {
           onChangeText={setDuree}
           placeholder="30"
           keyboardType="numeric"
+          testID="test-input-duree"
         />
       </View>
 
@@ -54,6 +56,7 @@ export function CreateSessionComponent() {
           onChangeText={setNombreKartsDisponibles}
           placeholder="10"
           keyboardType="numeric"
+          testID="test-input-nombreKartsDisponibles"
         />
       </View>
 
@@ -65,6 +68,7 @@ export function CreateSessionComponent() {
           onChangeText={setPrix}
           placeholder="25.00"
           keyboardType="decimal-pad"
+          testID="test-input-prix"
         />
       </View>
 
@@ -72,6 +76,7 @@ export function CreateSessionComponent() {
         style={[styles.button, isLoading && styles.buttonDisabled]}
         onPress={handleSubmit}
         disabled={isLoading}
+        testID="test-creer"
       >
         {isLoading ? (
           <ActivityIndicator color="white" />
@@ -88,7 +93,7 @@ export function CreateSessionComponent() {
 
       {isSuccess && (
         <View style={styles.successContainer}>
-          <Text style={styles.successText}>Session créée avec succès ! Statut: publié</Text>
+          <Text style={styles.successText}>Session créée avec succès</Text>
         </View>
       )}
     </View>

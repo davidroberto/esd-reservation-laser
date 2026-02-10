@@ -10,6 +10,24 @@ type UpdateSessionCommand = {
   prix: number;
 }
 
+// Etant donné que je suis connecté en tant que client
+// quand j'ajoute 3 produits au panier
+// alors que je dois recevoir une confirmation que les produits ont été ajoutés au panier
+
+// Etant donné que je suis connecté en tant que client
+// quand j'ajoute 5 produits au panier
+// alors que je dois recevoir une erreur m'indiquant que je ne peux pas ajouter plus de 3 produits au panier
+
+
+// => scenario de test unitaire (test d'acceptation)
+
+// BACKEND
+// test unitaire -> use case (règles métiers) -> fake repository (fausse données)
+
+
+// FRONTEND
+// test d'ui / integration -> composant -> hook (règles métiers) -> fake fetch (fausse données)
+
 
 
 export function useUpdateSession(fetchImplementation: fetchInterface) {

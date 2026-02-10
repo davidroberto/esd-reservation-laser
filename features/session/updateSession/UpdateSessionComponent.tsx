@@ -15,6 +15,7 @@ export function UpdateSessionComponent({ sessionId }: UpdateSessionComponentProp
   const [prix, setPrix] = useState("");
 
   const { session, error: fetchError, isLoading: isFetching } = useGetSession(sessionId, fakeFetchGetSession);
+
   const { updateSession, error, isLoading, isSuccess } = useUpdateSession(fakeFetchSuccess);
 
   useEffect(() => {
